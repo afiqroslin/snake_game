@@ -1,5 +1,6 @@
 from turtle import Turtle
 
+STARTING_POSITION = [(0, 0), (-20, 0), (-40, 0)]
 MOVE_DISTANCE = 20
 UP = 90
 LEFT = 180
@@ -10,29 +11,40 @@ RIGHT = 0
 class Snake:
 
     def __init__(self):  # Create snake and position when the class is called by an object
-        self.position = []
+        self.segment = []
         self.create_snake()
-        self.head = self.position[0]
+        self.head = self.segment[0]
+
+    # def create_snake(self):
+    #     for snake_count in range(0, 3):  # Spawn 3 squares side by side to create a snake
+    #         self.extend_snake()
 
     def create_snake(self):
-        initial_pos = 0
-        for snake_count in range(0, 3):  # Spawn 3 squares side by side to create a snake
-            snake = Turtle()
-            snake.shape("square")
-            snake.color("white")
-            snake.penup()
-            snake.goto(initial_pos, 0)
-            initial_pos -= 20
-            self.position.append(snake)
+        for position in STARTING_POSITION:  # Spawn 3 squares side by side to create a snake
+            self.extend_snake(position)
+
+    def extend_snake(self, position):   # Create another square and add inside the segment list
+        # initial_pos = 0
+        snake = Turtle()
+        snake.shape("square")
+        snake.color("white")
+        snake.penup()
+        # snake.goto(initial_pos, 0)
+        # initial_pos -= 20
+        snake.goto(position)
+        self.segment.append(snake)
+
+    def extend(self):
+        self.extend_snake(self.segment[-1].position())      # Add another square at the tail to extend the body
 
     def move_snake(self):
-        for pos in range(len(self.position) - 1, 0,
+        for pos in range(len(self.segment) - 1, 0,
                          -1):  # When the 1st square (head) move, the last square (tail) will take second square
             # position and 2nd square will take 1st square position
-            new_x = self.position[
+            new_x = self.segment[
                 pos - 1].xcor()  # assign new x coordinate to each square by replacing the square in front position
-            new_y = self.position[pos - 1].ycor()  # assign new y coordinate to each square
-            self.position[pos].goto(new_x, new_y)  # the square will move the respective position
+            new_y = self.segment[pos - 1].ycor()  # assign new y coordinate to each square
+            self.segment[pos].goto(new_x, new_y)  # the square will move the respective position
         self.head.forward(MOVE_DISTANCE)
 
     def up(self):

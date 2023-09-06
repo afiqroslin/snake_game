@@ -10,9 +10,9 @@ screen.bgcolor("black")
 screen.title("Orochi")
 screen.tracer(0)  # turn off animation
 
-point = 0
 snake = Snake()
 food = Food()
+score = Scoreboard()
 
 screen.listen()
 screen.onkey(snake.up, "Up")
@@ -23,16 +23,26 @@ screen.onkey(snake.right, "Right")
 game_is_on = True
 
 while game_is_on:
-    score = Scoreboard(point)
     screen.update()  # Refresh the graphics after all squares moved so it looks like it is one entity moving
     time.sleep(0.1)
     snake.move_snake()
 
     # Detect collision with food
     if snake.head.distance(food) < 15:
-        point += 1
         food.spawn()
-    score.clear()
+        snake.extend()
+        score.increase_score()
 
+    # Detect collision with wall
+    if snake.head.xcor() > 280 or snake.head.xcor() < -280 or snake.head.ycor() > 280 or snake.head.ycor() < -280:
+        game_is_on = False
+        score.game_over()
+
+    # Detect collision with tail
+    for segment in snake.segment[1:]:       # Go through snake segment list by excluding the head
+        if snake.head.distance(segment) < 10:   # If the head and the body distance less than 10px, end game
+            game_is_on = False
+            score.game_over()
+            print(snake.head.distance(segment))
 
 screen.exitonclick()

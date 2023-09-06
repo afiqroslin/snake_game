@@ -1,5 +1,7 @@
-from turtle import Screen, Turtle
+from turtle import Screen
 from snake import Snake
+from food import Food
+from scoreboard import Scoreboard
 import time
 
 screen = Screen()
@@ -8,7 +10,9 @@ screen.bgcolor("black")
 screen.title("Orochi")
 screen.tracer(0)  # turn off animation
 
+point = 0
 snake = Snake()
+food = Food()
 
 screen.listen()
 screen.onkey(snake.up, "Up")
@@ -19,8 +23,16 @@ screen.onkey(snake.right, "Right")
 game_is_on = True
 
 while game_is_on:
+    score = Scoreboard(point)
     screen.update()  # Refresh the graphics after all squares moved so it looks like it is one entity moving
     time.sleep(0.1)
     snake.move_snake()
+
+    # Detect collision with food
+    if snake.head.distance(food) < 15:
+        point += 1
+        food.spawn()
+    score.clear()
+
 
 screen.exitonclick()

@@ -12,7 +12,7 @@ class Food(Turtle):
         self.speed("fastest")   # Set speed to fastest to make it invisible
         self.spawn()
 
-    def spawn(self):    # Spawn food randomly within the wall
+    def spawn(self):    # Spawn food randomly within the screen
         random_x = random.randint(-280, 280)
         random_y = random.randint(-280, 280)
         self.goto(random_x, random_y)

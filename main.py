@@ -1,3 +1,5 @@
+# Author : Afiq Roslin, https://github.com/afiqroslin
+
 from turtle import Screen
 from snake import Snake
 from food import Food
@@ -5,7 +7,7 @@ from scoreboard import Scoreboard
 import time
 
 screen = Screen()
-screen.setup(width=600, height=600)
+screen.setup(width=600, height=600) # Set the screen size of 600x600
 screen.bgcolor("black")
 screen.title("Orochi")
 screen.tracer(0)  # turn off animation
@@ -43,6 +45,6 @@ while game_is_on:
         if snake.head.distance(segment) < 10:   # If the head and the body distance less than 10px, end game
             game_is_on = False
             score.game_over()
-            print(snake.head.distance(segment))
+            # print(snake.head.distance(segment))
 
 screen.exitonclick()

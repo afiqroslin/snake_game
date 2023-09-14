@@ -6,8 +6,13 @@ class Scoreboard(Turtle):
     Create scoreboard on the screen to let player keep track of their score and display game over when the snake
     collide with the wall or with itself.
     '''
+
     def __init__(self):
         super().__init__()
+        file = open('highest_score.txt')
+        content = file.read()
+        convert_content = int(content)
+        self.new_highest_score = convert_content
         self.point = 0
         self.color("blue")
         self.penup()
@@ -16,7 +21,7 @@ class Scoreboard(Turtle):
         self.update_scoreboard()
 
     def update_scoreboard(self):    # Write 'Score' on the screen
-        self.write(arg=f'Score = {self.point}', align='center', font=("Courier", 20, "bold"))
+        self.write(arg=f'Score = {self.point} Highest score = {self.new_highest_score}', align='center', font=("Courier", 20, "bold"))
 
     def game_over(self):
         self.goto(0, 0)     # Display Game Over, whenever player lose the game
@@ -26,3 +31,11 @@ class Scoreboard(Turtle):
         self.point += 1
         self.clear()
         self.update_scoreboard()
+
+    def high_score(self):
+        if self.point > self.new_highest_score:
+            self.new_highest_score = self.point
+        self.update_scoreboard()
+        with open("highest_score.txt", mode="w") as file:
+            file.write(f'{self.new_highest_score}')
+

@@ -66,4 +66,6 @@ while restart:
                     restart = True
                 # print(snake.head.distance(segment))
 
+
+
 screen.exitonclick()

@@ -12,6 +12,7 @@ To play this game, simply download the zip file or clone this repo to your local
 Go into executable -> dist, double click on the application and the game is ready to play! No external software/ prerequisite is required.
 
 **NOTE: The executable file can only run on Windows. For Linux, can run the apps by running the script on terminal.**
+
 **UPDATE NOTICE: The executable file is currently not updated to the latest version, I suggest to run the code on command prompt while I'm working on fixing the bugs :(**
 
 
